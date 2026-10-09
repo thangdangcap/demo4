@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAIKU Nhật Bản-Khởi Động Xíu Nào Các Bạn 10A12 Ơi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap');
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; color:#eef6ff;
+  font-family:"Be Vietnam Pro",sans-serif;
+  background:
+    radial-gradient(circle at 15% 15%,#435eaa 0,transparent 28%),
+    radial-gradient(circle at 85% 80%,#9e207f 0,transparent 30%),
+    linear-gradient(135deg,#081346,#2e3557 55%,#4c0e8a);
+  overflow-x:hidden;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;
+  background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+.container{width:min(1050px,92%);margin:auto;padding:28px 0 50px}
+.glass{
+  background:rgba(12,18,43,.78);border:1px solid rgba(148,184,255,.22);
+  box-shadow:0 0 35px rgba(76,116,255,.12), inset 0 1px rgba(255,255,255,.05);
+  backdrop-filter:blur(14px);border-radius:24px;
+}
+.hero{padding:30px;text-align:center;margin-bottom:20px}
+.jp{font-family:"Zen Kaku Gothic New",sans-serif;color:#ff557d;letter-spacing:7px;font-size:14px}
+h1{font-size:clamp(34px,7vw,68px);margin:7px 0 4px;letter-spacing:3px;
+ text-shadow:0 0 20px rgba(255,80,130,.45)}
+.subtitle{color:#aebbd8;margin:0}
+.badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.badge{padding:8px 13px;border-radius:999px;background:rgba(91,125,255,.13);
+ border:1px solid rgba(132,161,255,.28);font-size:13px;color:#cbd8ff}
+#game{padding:25px}
+.topbar{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;margin-bottom:20px}
+.progress{height:10px;background:#11182e;border-radius:20px;overflow:hidden}
+#progressBar{height:100%;width:0%;background:linear-gradient(90deg,#6f8cff,#ff4e83);transition:.3s}
+.stat{padding:10px 14px;border-radius:13px;background:#0d142b;border:1px solid #26345c;font-weight:700;white-space:nowrap}
+.timer.warning{color:#ca375c;box-shadow:0 0 15px rgba(255,80,120,.25)}
+.qnum{color:#8fa8ff;font-size:13px;font-weight:800;letter-spacing:1px}
+h2{font-size:25px;line-height:1.45;margin:8px 0 22px}
+.answers{display:grid;gap:12px}
+.answer{
+  width:100%;text-align:left;padding:16px 18px;border-radius:15px;
+  border:1px solid #29365f;background:#0b1228;color:#eaf0ff;cursor:pointer;
+  font:inherit;transition:.18s;display:flex;gap:13px;align-items:flex-start;
+}
+.answer:hover{transform:translateY(-2px);border-color:#758fff;background:#101a38}
+.answer .letter{width:30px;height:30px;display:grid;place-items:center;flex:none;
+ border-radius:9px;background:#18244a;color:#9db1ff;font-weight:800}
+.answer.correct{border-color:#42e6aa;background:rgba(34,165,120,.13)}
+.answer.wrong{border-color:#ff547e;background:rgba(194,48,87,.13)}
+.answer.correct .letter{background:#1e9e76;color:white}
+.answer.wrong .letter{background:#bd3e61;color:white}
+#feedback{min-height:27px;margin:17px 0 5px;font-weight:700}
+#next{
+  display:none;margin-left:auto;padding:12px 20px;border:0;border-radius:12px;
+  background:linear-gradient(90deg,#708cff,#ff4f86);color:white;font-weight:800;cursor:pointer
+}
+.summary{display:none;text-align:center;padding:35px}
+.summary h2{font-size:38px;margin-bottom:8px}
+.bigscore{font-size:64px;font-weight:900;background:linear-gradient(90deg,#91a7ff,#ff6c9b);
+-webkit-background-clip:text;color:transparent}
+.review{text-align:left;margin-top:25px}
+.review div{padding:12px 14px;margin:8px 0;background:#0b1228;border-radius:12px;border:1px solid #253256}
+.small{font-size:13px;color:#91a0c0}
+button.restart{margin-top:20px;padding:13px 22px;border:0;border-radius:12px;background:#eef3ff;
+color:#0b1022;font-weight:800;cursor:pointer}
+@media(max-width:700px){.topbar{grid-template-columns:1fr 1fr}.progress{grid-column:1/-1;grid-row:1}.stat{font-size:13px}#game{padding:18px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero glass">
+    <div class="jp">_HAIKU_</div>
+    <h1> HAIKU </h1>
+    <p class="subtitle">Mini game xíu nha - Nhóm của Anh Thơ</p>
+    <div class="badges">
+      <span class="badge">12 câu hỏi (học bài kĩ nha) </span><span class="badge">15 phút</span>
+      <span class="badge">Kiến thức Ngữ văn 10 chương 2 </span><span class="badge">Combo + điểm</span>
+    </div>
+  </section>
+
+  <section id="game" class="glass">
+    <div class="topbar">
+      <div class="progress"><div id="progressBar"></div></div>
+      <div class="stat">⭐ <span id="score">0</span> điểm</div>
+      <div class="stat timer" id="timer">15:00</div>
+    </div>
+    <div class="qnum" id="qnum"></div>
+    <h2 id="question"></h2>
+    <div class="answers" id="answers"></div>
+    <div id="feedback"></div>
+    <button id="next">CÂU TIẾP →</button>
+  </section>
+
+  <section id="summary" class="summary glass">
+    <div class="small">KẾT QUẢ HÀNH TRÌNH HAIKU</div>
+    <h2 id="resultTitle">Wow Amazing</h2>
+    <div class="bigscore" id="finalScore">0/12</div>
+    <p id="resultText"></p>
+    <div class="review" id="review"></div>
+    <button class="restart" onclick="location.reload()"> Chiến Lại</button>
+  </section>
+</div>
+
+<script>
+const questions = [
+ {q:"Haiku là thể thơ truyền thống của quốc gia nào?", a:["Trung Quốc","Nhật Bản","Hàn Quốc","Việt Nam"],c:1,e:"Haiku là thể thơ truyền thống có vị trí quan trọng trong văn học Nhật Bản."},
+ {q:"Một bài Haiku truyền thống thường được cấu tạo thành bao nhiêu dòng?", a:["2 dòng","3 dòng","4 dòng","5 dòng"],c:1,e:"Cấu trúc cơ bản gồm 3 dòng."},
+ {q:"Quy luật âm tiết quen thuộc của Haiku là gì?", a:["5–7–5","7–7–7","5–5–7","7–5–7"],c:0,e:"Ba dòng thường theo nhịp 5 – 7 – 5 âm tiết."},
+ {q:"Yếu tố nào thường gợi ra một mùa trong bài Haiku?", a:["Kigo","Kireji","Kanji","Tanka"],c:0,e:"Kigo là từ/ngữ gợi mùa, giúp định vị không khí và thời gian của bài thơ."},
+ {q:"Kireji có thể hiểu gần nhất là gì?", a:["Một từ chỉ màu sắc","Từ/ngữ tạo điểm ngắt, nhấn","Tên một loài hoa","Tên tác giả"],c:1,e:"Kireji là yếu tố tạo điểm ngắt/nhấn, góp phần tạo khoảng lặng và dư âm."},
+ {q:"Ai là một trong những nhà thơ Haiku nổi tiếng được nhắc tới trong bài?", a:["Matsuo Bashō (Ba-sô)","William Shakespeare","Victor Hugo","Nguyễn Du"],c:0,e:"Ba-sô (Matsuo Bashō) là một đại diện tiêu biểu của thơ Haiku."},
+ {q:"Hình ảnh trung tâm trong bài thơ Ba-sô 'Trên cành khô / cánh quạ đậu / chiều thu' là gì?", a:["Cánh quạ trên cành khô","Dòng sông","Mặt trăng","Một cánh hoa"],c:0,e:"Cánh quạ đậu trên cành khô là hình ảnh trung tâm, gắn với không khí chiều thu."},
+ {q:"Điểm nổi bật của hình ảnh Haiku trong các ví dụ là gì?", a:["Dài và nhiều chi tiết","Cô đọng, chọn lọc, gợi nhiều liên tưởng","Chủ yếu kể chuyện","Luôn có nhân vật đối thoại"],c:1,e:"Haiku dùng rất ít lời nhưng tạo ra hình ảnh và dư âm lớn."},
+ {q:"Trong bài của Ba-sô, hình ảnh 'cành khô – cánh quạ – chiều thu' tạo cảm giác nổi bật nào?", a:["Ồn ào, náo nhiệt","Tĩnh lặng, cô quạnh, trầm lắng","Hài hước","Sôi động như lễ hội"],c:1,e:"Các hình ảnh liên kết với chiều thu tạo không gian tĩnh, vắng và có chiều sâu cảm xúc."},
+ {q:"Bài Haiku của Chiyo-ni gợi ra phát hiện nào liên quan đến chiếc giếng?", a:["Một người rơi xuống giếng","Dây leo/hoa quanh giếng khiến người thơ không nỡ làm tổn hại cảnh vật","Giếng bị cạn","Giếng chứa kho báu"],c:1,e:"Hình ảnh dây leo quanh giếng làm nảy sinh sự trân trọng thiên nhiên và lựa chọn ứng xử nhẹ nhàng."},
+ {q:"Vì sao Haiku thường tạo cho người đọc cảm giác 'ít lời mà nhiều ý'?", a:["Vì bài thơ rất dài","Vì hình ảnh cô đọng mở ra nhiều liên tưởng và cảm xúc","Vì có nhiều thuật ngữ khó","Vì luôn giải thích trực tiếp ý nghĩa"],c:1,e:"Haiku không nói hết; hình ảnh, khoảng lặng và liên tưởng giúp người đọc tự hoàn thiện ý nghĩa."},
+ {q:"Thông điệp phù hợp nhất rút ra từ các bài Haiku trong bài học là gì?", a:["Thiên nhiên chỉ để ngắm nhìn","Hãy chú ý những khoảnh khắc nhỏ và biết trân trọng, hòa hợp với thiên nhiên","Thơ phải luôn có cốt truyện","Càng nhiều chữ càng hay"],c:1,e:"Haiku hướng người đọc tới sự tinh tế: nhận ra vẻ đẹp trong khoảnh khắc nhỏ và ứng xử hài hòa với thiên nhiên."}
+];
+
+let index=0, score=0, answered=false, time=900, mistakes=[];
+const $=id=>document.getElementById(id);
+
+function render(){
+  const x=questions[index];
+  $("qnum").textContent=`CÂU ${index+1} / ${questions.length}`;
+  $("question").textContent=x.q;
+  $("progressBar").style.width=((index)/questions.length*100)+"%";
+  $("score").textContent=score;
+  $("feedback").textContent="";
+  $("next").style.display="none";
+  answered=false;
+  $("answers").innerHTML="";
+  x.a.forEach((ans,i)=>{
+    const b=document.createElement("button");
+    b.className="answer";
+    b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span>${ans}</span>`;
+    b.onclick=()=>choose(i,b);
+    $("answers").appendChild(b);
+  });
+}
+function choose(i,btn){
+  if(answered)return;
+  answered=true;
+  const x=questions[index];
+  [...$("answers").children].forEach((b,j)=>{
+    b.disabled=true;
+    if(j===x.c)b.classList.add("correct");
+  });
+  if(i===x.c){
+    score+=100;
+    btn.classList.add("correct");
+    $("feedback").textContent="✓ Chính xác! +100 điểm";
+    $("feedback").style.color="#55e6b0";
+  }else{
+    btn.classList.add("wrong");
+    mistakes.push(index);
+    $("feedback").textContent="✗ Chưa đúng — "+x.e;
+    $("feedback").style.color="#ff7194";
+  }
+  $("score").textContent=score;
+  $("next").style.display="block";
+}
+$("next").onclick=()=>{
+  index++;
+  if(index>=questions.length) finish();
+  else render();
+};
+function finish(){
+  clearInterval(clock);
+  $("game").style.display="none";
+  $("summary").style.display="block";
+  $("finalScore").textContent=`${score/100}/${questions.length}`;
+  const pct=score/questions.length;
+  $("resultTitle").textContent=pct>=.85?"🔥 HAIKU MASTER":pct>=.65?"⚡ Khá ổn!":"🌱 Tiếp tục luyện nhé!";
+  $("resultText").textContent=`Bạn trả lời đúng ${score/100}/${questions.length} câu. ${mistakes.length? "Xem lại các câu sai bên dưới để củng cố kiến thức.":"Không sai câu nào — quá cháy!"}`;
+  $("review").innerHTML=mistakes.length
+    ? mistakes.map(i=>`<div><b>Câu ${i+1}:</b> ${questions[i].e}</div>`).join("")
+    : "<div>Perfect run ✨ Víp nhỉ bạn đã nắm khá chắc nội dung bài.</div>";
+}
+function tick(){
+  time--;
+  if(time<=0){time=0; finish();}
+  const m=String(Math.floor(time/60)).padStart(2,"0");
+  const s=String(time%60).padStart(2,"0");
+  $("timer").textContent=`${m}:${s}`;
+  if(time<=120)$("timer").classList.add("warning");
+}
+const clock=setInterval(tick,1000);
+render();
+</script>
+</body>
+</html>
